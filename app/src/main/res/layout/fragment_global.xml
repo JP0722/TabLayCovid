@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".GlobalFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GLOBAL STATS,COVID-19"
+            android:textSize="25sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            />
+   <androidx.cardview.widget.CardView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:cardCornerRadius="15dp"
+       app:cardBackgroundColor="#FFEB3B"
+       android:layout_marginBottom="50dp"
+       android:layout_marginTop="40dp"
+       >
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/tcc_text"
+               android:text="Confirmed Cases"
+               android:textStyle="bold"
+               android:textSize="20sp"
+               android:layout_centerHorizontal="true"
+               android:layout_marginTop="5dp"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/newcases"
+               android:layout_below="@id/tcc_text"
+               android:text="New Cases:-"
+               android:layout_marginLeft="20dp"
+               android:textSize="15sp"
+               android:layout_marginTop="10dp"
+               />
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/totalcases"
+               android:layout_below="@id/newcases"
+               android:text="Total Cases:-"
+               android:layout_marginLeft="20dp"
+               android:textSize="15sp"
+               android:layout_marginBottom="20dp"
+               android:layout_marginTop="10dp"
+               />
+
+
+       </RelativeLayout>
+
+
+   </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="#4CAF50"
+        android:layout_marginBottom="50dp"
+
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/trc_text"
+                android:text="Recovered Cases"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginTop="5dp"
+                android:layout_centerHorizontal="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/newrcases"
+                android:layout_below="@id/trc_text"
+                android:text="New Cases:-"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/totalrcases"
+                android:layout_below="@id/newrcases"
+                android:text="Total Cases:-"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                />
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="#F44336"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tdc_text"
+                android:text="Death Cases"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/newdcases"
+                android:layout_below="@id/tdc_text"
+                android:text="New Cases:-"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/totaldcases"
+                android:layout_below="@id/newdcases"
+                android:text="Total Cases:-"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                />
+
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+</FrameLayout>
