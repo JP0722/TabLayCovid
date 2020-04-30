@@ -1,5 +1,6 @@
 package com.example.tablaycovid;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +51,7 @@ public class GlobalFragment extends Fragment {
     TextView tcc_text,newcases,totalcases,
             trc_text,newrcases,totalrcases,
             tdc_text,newdcases,totaldcases;
+    PieChart pieChart;
 
     public GlobalFragment() {
         // Required empty public constructor
@@ -73,7 +81,7 @@ public class GlobalFragment extends Fragment {
         tdc_text=(TextView)view.findViewById(R.id.tdc_text);
         newdcases=(TextView)view.findViewById(R.id.newdcases);
         totaldcases=(TextView)view.findViewById(R.id.totaldcases);
-
+        pieChart=(PieChart)view.findViewById(R.id.pieChart);
         dostuff();
         return view;
 
@@ -99,6 +107,37 @@ public class GlobalFragment extends Fragment {
 
                 newdcases.setText("New Cases:- "+covidGlobal.getNewDeaths());
                 totaldcases.setText("Total cases:- "+covidGlobal.getTotalDeaths());
+
+                pieChart.setUsePercentValues(true);
+                pieChart.getDescription().setEnabled(false);
+                pieChart.setExtraOffsets(5,10,5,5);
+
+                pieChart.setDragDecelerationFrictionCoef(0.95f);
+
+                pieChart.setDrawHoleEnabled(true);
+                pieChart.setHoleColor(Color.WHITE);
+                pieChart.setTransparentCircleRadius(55f);
+
+                ArrayList<PieEntry> casevalues=new ArrayList<>();
+
+                casevalues.add(new PieEntry(Integer.parseInt(covidGlobal.getTotalRecovered()),"Recovered"));
+                casevalues.add(new PieEntry(Integer.parseInt(covidGlobal.getTotalDeaths()),"Death"));
+                int activeacses=Integer.parseInt(covidGlobal.getTotalConfirmed())-
+                        (Integer.parseInt(covidGlobal.getTotalRecovered())+Integer.parseInt(covidGlobal.getTotalDeaths()));
+
+                casevalues.add(new PieEntry(activeacses,"Active"));
+
+                PieDataSet dataSet=new PieDataSet(casevalues,"STATS");
+                dataSet.setSliceSpace(3f);
+                dataSet.setSelectionShift(5f);
+                dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                PieData data=new PieData(dataSet);
+                data.setValueTextSize(20f);
+                data.setValueTextColor(Color.BLACK);
+
+
+
+                pieChart.setData(data);
 
             }
 
