@@ -12,7 +12,15 @@ public interface ApiClass {
     @GET("/summary")
     Call<CovidAll> getCountriesdetails();
 
-    @GET("/state_district_wise.json")
+
+    @GET("/v2/countries")
+    Call<List<NCovidCountryObj>> getNewCountryDetails();
+
+    @GET("/v2/all")
+    Call<NCovidGlobalObj> getNewGlobalDetails();
+
+    @GET("/v2/state_district_wise.json")
     Call<List<StateObject>> getStateDetails();
+
 
 }

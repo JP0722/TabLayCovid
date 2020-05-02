@@ -3,14 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IndiaFragment">
+    tools:context=".IndiaFragment"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        android:id="@+id/tv_fi"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/cust_edittext"
+            android:id="@+id/editTextindia"
+            android:hint="Search for State"
+            android:cursorVisible="true"
+            android:layout_margin="10dp"
+            android:gravity="center"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rViewindia"
+            android:layout_below="@id/editTextindia"
+
+            />
+
+    </RelativeLayout>
 
 </FrameLayout>

@@ -2,19 +2,19 @@ package com.example.tablaycovid;
 
 public class DeltaObj {
 
-    private String confirmed;
-    private String deceased;
-    private String recovered;
+    private Integer confirmed;
+    private Integer deceased;
+    private Integer recovered;
 
-    public String getConfirmed() {
+    public Integer getConfirmed() {
         return confirmed;
     }
 
-    public String getDeceased() {
+    public Integer getDeceased() {
         return deceased;
     }
 
-    public String getRecovered() {
+    public Integer getRecovered() {
         return recovered;
     }
 }

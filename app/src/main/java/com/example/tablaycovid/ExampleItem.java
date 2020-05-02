@@ -3,7 +3,7 @@ import android.graphics.Bitmap;
 
 public class ExampleItem {
 
-    private Bitmap mImageResource;
+    private String mImageResource;
     private String country;
     private String totConfirmed;
     private String totActive;
@@ -11,7 +11,7 @@ public class ExampleItem {
     private String totDeaths;
 
 
-    public ExampleItem(Bitmap imageResource, String country, String totConfirmed, String totActivie, String totRecovered
+    public ExampleItem(String imageResource, String country, String totConfirmed, String totActivie, String totRecovered
             , String totDeaths) {
         mImageResource = imageResource;
         this.country = country;
@@ -21,7 +21,7 @@ public class ExampleItem {
         this.totDeaths = totDeaths;
     }
 
-    public Bitmap getImageResource() {
+    public String getImageResource() {
         return mImageResource;
     }
 

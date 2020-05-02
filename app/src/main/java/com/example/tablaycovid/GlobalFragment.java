@@ -13,10 +13,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blongho.country_data.World;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -50,8 +54,10 @@ public class GlobalFragment extends Fragment {
 
     TextView tcc_text,newcases,totalcases,
             trc_text,newrcases,totalrcases,
-            tdc_text,newdcases,totaldcases;
+            tdc_text,newdcases,totaldcases,
+            tac_text,totalacases;
     PieChart pieChart;
+
 
     public GlobalFragment() {
         // Required empty public constructor
@@ -62,7 +68,7 @@ public class GlobalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("https://api.covid19api.com/")
+                .baseUrl("https://corona.lmao.ninja")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiClass=retrofit.create(ApiClass.class);
@@ -75,38 +81,46 @@ public class GlobalFragment extends Fragment {
         totalcases=(TextView)view.findViewById(R.id.totalcases);
 
         trc_text=(TextView)view.findViewById(R.id.trc_text);
-        newrcases=(TextView)view.findViewById(R.id.newrcases);
+      //  newrcases=(TextView)view.findViewById(R.id.newrcases);
         totalrcases=(TextView)view.findViewById(R.id.totalrcases);
 
         tdc_text=(TextView)view.findViewById(R.id.tdc_text);
         newdcases=(TextView)view.findViewById(R.id.newdcases);
         totaldcases=(TextView)view.findViewById(R.id.totaldcases);
         pieChart=(PieChart)view.findViewById(R.id.pieChart);
+        tac_text=(TextView)view.findViewById(R.id.tac_text);
+        totalacases=(TextView)view.findViewById(R.id.totalacases);
+
         dostuff();
         return view;
 
     }
     public void dostuff()
     {
-        Toast.makeText(getActivity(), "GETTING DATA", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getActivity(), "GETTING DATA", Toast.LENGTH_SHORT).show();
 
 
-        Call<CovidAll> call=apiClass.getCountriesdetails();
-        call.enqueue(new Callback<CovidAll>() {
+        Call<NCovidGlobalObj> call=apiClass.getNewGlobalDetails();
+        call.enqueue(new Callback<NCovidGlobalObj>() {
             @Override
-            public void onResponse(Call<CovidAll> call, Response<CovidAll> response) {
+            public void onResponse(Call<NCovidGlobalObj> call, Response<NCovidGlobalObj> response) {
+                if(!response.isSuccessful())
+                {
+                    Toast.makeText(getContext(), "CONNECTION DENIED", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                CovidAll covidAll=response.body();
+                NCovidGlobalObj covidGlobal=response.body();
+                newcases.setText("New Confirmed Cases:- "+covidGlobal.getTodayCases());
+                totalcases.setText("Total Confirmed cases:- "+ covidGlobal.getCases());
 
-                CovidGlobal covidGlobal=covidAll.getCovidGlobal();
-                newcases.setText("New Cases:- "+covidGlobal.getNewConfirmed());
-                totalcases.setText("Total cases:- "+covidGlobal.getTotalConfirmed());
+             //   newrcases.setText("New Cases:- ");
+                totalrcases.setText("Total Recovered cases:- "+covidGlobal.getRecovered());
 
-                newrcases.setText("New Cases:- "+covidGlobal.getNewRecovered());
-                totalrcases.setText("Total cases:- "+covidGlobal.getTotalRecovered());
+                totalacases.setText("Toatal Active Cases :- "+covidGlobal.getActive());
 
-                newdcases.setText("New Cases:- "+covidGlobal.getNewDeaths());
-                totaldcases.setText("Total cases:- "+covidGlobal.getTotalDeaths());
+                newdcases.setText("Today Deaths:- "+covidGlobal.getTodayDeaths());
+                totaldcases.setText("Total Death cases:- "+covidGlobal.getDeaths());
 
                 pieChart.setUsePercentValues(true);
                 pieChart.getDescription().setEnabled(false);
@@ -120,12 +134,17 @@ public class GlobalFragment extends Fragment {
 
                 ArrayList<PieEntry> casevalues=new ArrayList<>();
 
-                casevalues.add(new PieEntry(Integer.parseInt(covidGlobal.getTotalRecovered()),"Recovered"));
-                casevalues.add(new PieEntry(Integer.parseInt(covidGlobal.getTotalDeaths()),"Death"));
-                int activeacses=Integer.parseInt(covidGlobal.getTotalConfirmed())-
-                        (Integer.parseInt(covidGlobal.getTotalRecovered())+Integer.parseInt(covidGlobal.getTotalDeaths()));
+                casevalues.add(new PieEntry(Integer.parseInt(covidGlobal.getRecovered()),"Recovered"));
+                casevalues.add(new PieEntry(Integer.parseInt(covidGlobal.getDeaths()),"Death"));
+                int activeacses=Integer.parseInt(covidGlobal.getActive());
+
+                Description description=new Description();
+                description.setText("COVID-19,Global Stats");
+                description.setTextSize(20);
+                pieChart.setDescription(description);
 
                 casevalues.add(new PieEntry(activeacses,"Active"));
+                pieChart.animateY(1500, Easing.EaseInOutCubic);
 
                 PieDataSet dataSet=new PieDataSet(casevalues,"STATS");
                 dataSet.setSliceSpace(3f);
@@ -133,16 +152,16 @@ public class GlobalFragment extends Fragment {
                 dataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                 PieData data=new PieData(dataSet);
                 data.setValueTextSize(20f);
+                data.setValueFormatter(new PercentFormatter(pieChart));
                 data.setValueTextColor(Color.BLACK);
 
-
-
                 pieChart.setData(data);
+
 
             }
 
             @Override
-            public void onFailure(Call<CovidAll> call, Throwable t) {
+            public void onFailure(Call<NCovidGlobalObj> call, Throwable t) {
 
             }
         });

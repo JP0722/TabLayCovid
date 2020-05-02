@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,72 +43,59 @@ public class MainActivity extends AppCompatActivity {
         tabIndia=findViewById(R.id.ti_india);
 
 
+        if(checkConnection()) {
+
+            pageAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+
+            viewPager.setAdapter(pageAdapter);
+
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                    if (tab.getPosition() == 1) {
+
+                        // Toast.makeText(MainActivity.this, Integer.toString(tab.getPosition()), Toast.LENGTH_SHORT).show();
+                    } else if (tab.getPosition() == 2) {
+                        // Toast.makeText(MainActivity.this, Integer.toString(tab.getPosition()), Toast.LENGTH_SHORT).show();
+                    } else {
+                        //Toast.makeText(MainActivity.this, Integer.toString(tab.getPosition()), Toast.LENGTH_SHORT).show();
+                    }
 
 
-
-
-        pageAdapter=new PageAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
-        viewPager.setAdapter(pageAdapter);
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                if(tab.getPosition()==1)
-                {
-
-                   // Toast.makeText(MainActivity.this, Integer.toString(tab.getPosition()), Toast.LENGTH_SHORT).show();
-                }
-                else if(tab.getPosition()==2)
-                {
-                   // Toast.makeText(MainActivity.this, Integer.toString(tab.getPosition()), Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    //Toast.makeText(MainActivity.this, Integer.toString(tab.getPosition()), Toast.LENGTH_SHORT).show();
                 }
 
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
 
+                }
 
-            }
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+                }
+            });
+            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        }
 
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.toolbar_search_menu,menu);
-        MenuItem menuItem=menu.findItem(R.id.search_bar);
-        Toast.makeText(MainActivity.this, "YES I AM IN", Toast.LENGTH_SHORT).show();
-        SearchView searchView=(SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Type to Search");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
+    public boolean checkConnection()
+    {
+        ConnectivityManager manager=(ConnectivityManager) getApplication().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork=manager.getActiveNetworkInfo();
+        if(null==activeNetwork)
+        {
+
+                Toast.makeText(this, "PLEASE ENABLE INTERNET", Toast.LENGTH_SHORT).show();
                 return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-               // mAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-
-
-        return super.onCreateOptionsMenu(menu);
+        }
+        else
+        {
+            return true;
+        }
     }
+
+
 }

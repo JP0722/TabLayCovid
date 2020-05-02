@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp"
+    android:layout_margin="5dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/state_name"
+            android:textSize="20sp"
+            android:text="STATE_NAME"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="5dp"
+
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/state_total_confirmed"
+            android:textSize="15sp"
+            android:text="total confirmed"
+            android:layout_below="@id/state_name"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="20dp"
+
+            android:layout_marginBottom="5dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/state_total_active"
+            android:textSize="15sp"
+            android:text="total active"
+            android:layout_below="@id/state_total_confirmed"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="20dp"
+
+            android:layout_marginBottom="5dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/state_total_recovered"
+            android:textSize="15sp"
+            android:text="total recovered"
+            android:layout_below="@id/state_total_active"
+            android:layout_marginLeft="20dp"
+            android:textColor="@android:color/black"
+
+            android:layout_marginBottom="5dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/state_total_deceased"
+            android:textSize="15sp"
+            android:text="total deceased"
+            android:layout_below="@id/state_total_recovered"
+            android:layout_marginLeft="20dp"
+            android:textColor="@android:color/black"
+            android:layout_marginBottom="10dp"
+
+            />
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

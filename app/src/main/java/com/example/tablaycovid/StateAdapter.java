@@ -1,6 +1,5 @@
 package com.example.tablaycovid;
 
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,23 +7,18 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.blongho.country_data.World;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
-public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleViewHolder> implements Filterable{
+public class StateAdapter extends RecyclerView.Adapter<StateAdapter.ExampleViewHolder> implements Filterable {
 
 
-    private ArrayList<ExampleItem> mExampleList;
-    private ArrayList<ExampleItem> exampleListFull;
+    private ArrayList<StateItem> mExampleList;
+    private ArrayList<StateItem> exampleListFull;
     private OnItemClickListener mListener;
 
     public interface  OnItemClickListener{
@@ -38,8 +32,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
 
-        public ImageView mImageView;
-        public TextView countryname;
+        public TextView statename;
         public TextView confcases;
         public TextView activecases;
         public TextView recoveredcases;
@@ -47,12 +40,11 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
         public ExampleViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
-            mImageView=itemView.findViewById(R.id.imageView1);
-            countryname=itemView.findViewById(R.id.countryname);
-            activecases=itemView.findViewById(R.id.activecases);
-            confcases=itemView.findViewById(R.id.confcases);
-            recoveredcases=itemView.findViewById(R.id.recoveredcases);
-            deadcases=itemView.findViewById(R.id.deadcases);
+            statename=itemView.findViewById(R.id.state_name);
+            activecases=itemView.findViewById(R.id.state_total_active);
+            confcases=itemView.findViewById(R.id.state_total_confirmed);
+            recoveredcases=itemView.findViewById(R.id.state_total_recovered);
+            deadcases=itemView.findViewById(R.id.state_total_deceased);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -70,7 +62,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         }
     }
 
-    public ExampleAdapter(ArrayList<ExampleItem> exampleList){
+    public StateAdapter(ArrayList<StateItem> exampleList){
         mExampleList=exampleList;
         exampleListFull=new ArrayList<>(mExampleList);
     }
@@ -78,7 +70,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
     @NonNull
     @Override
     public ExampleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.example_item,parent,false);
+        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.state_item,parent,false);
         ExampleViewHolder evh=new ExampleViewHolder(v,mListener);
         return evh;
     }
@@ -87,21 +79,14 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int position) {
 
 
-        ExampleItem currentItem=mExampleList.get(position);
-        try {
+        StateItem currentItem=mExampleList.get(position);
 
-            final int flagimage=World.getFlagOf(currentItem.getImageResource());
-            holder.mImageView.setImageResource(flagimage);
-        }
-        catch (Exception e)
-        {
-            holder.mImageView.setImageResource(R.drawable.ic_launcher_background);
-        }
-        holder.countryname.setText(currentItem.getCountry());
-        holder.confcases.setText(currentItem.getTotConfirmed());
-        holder.activecases.setText(currentItem.getTotActive());
-        holder.recoveredcases.setText(currentItem.getTotRecovered());
-        holder.deadcases.setText(currentItem.getTotDeaths());
+
+        holder.statename.setText(currentItem.getState_name());
+        holder.confcases.setText(currentItem.getState_confirmed());
+        holder.activecases.setText(currentItem.getState_active());
+        holder.recoveredcases.setText(currentItem.getState_recovered());
+        holder.deadcases.setText(currentItem.getState_deceased());
     }
 
     @Override
@@ -117,7 +102,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
     private Filter exapleFilter=new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            List<ExampleItem> filteredList=new ArrayList<>();
+            List<StateItem> filteredList=new ArrayList<>();
             if(constraint==null || constraint.length()==0)
             {
                 filteredList.addAll(exampleListFull);
@@ -125,9 +110,9 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
             else
             {
                 String filteredpattern=constraint.toString().toLowerCase().trim();
-                for(ExampleItem item: exampleListFull)
+                for(StateItem item: exampleListFull)
                 {
-                    if(item.getCountry().toLowerCase().contains(filteredpattern))
+                    if(item.getState_name().toLowerCase().contains(filteredpattern))
                     {
                         filteredList.add(item);
                     }
@@ -147,11 +132,10 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         }
     };
 
-    public void filteredList(ArrayList<ExampleItem> filteredList)
+    public void filteredList(ArrayList<StateItem> filteredList)
     {
 
         mExampleList=filteredList;
-        //exampleListFull=filteredList;
         notifyDataSetChanged();
     }
 

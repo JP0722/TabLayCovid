@@ -1,6 +1,9 @@
 package com.example.tablaycovid;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -21,6 +25,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.blongho.country_data.World;
+
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,16 +67,19 @@ public class CountryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        World.init(getContext());
+
         Retrofit retrofit=new Retrofit.Builder()
-                .baseUrl("https://api.covid19api.com/")
+                .baseUrl("https://corona.lmao.ninja") //https://api.covid19api.com/summary ---- https://corona.lmao.ninja/v2/
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         apiClass=retrofit.create(ApiClass.class);
-       // dostuff();
 
         View view=inflater.inflate(R.layout.fragment_country, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.rView);
         editText=(EditText)view.findViewById(R.id.editText);
+        exampleList.clear();
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -95,6 +106,7 @@ public class CountryFragment extends Fragment {
     public void dostuff()
     {
 
+
        mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -109,6 +121,7 @@ public class CountryFragment extends Fragment {
 
         Toast.makeText(getActivity(), "GETTING DATA", Toast.LENGTH_SHORT).show();
 
+        /*
 
         Call<CovidAll> call=apiClass.getCountriesdetails();
         call.enqueue(new Callback<CovidAll>() {
@@ -131,19 +144,14 @@ public class CountryFragment extends Fragment {
                                     -(Integer.parseInt(country.getTotalRecovered())+Integer.parseInt(country.getTotalDeaths()))),
                             "TotalRecovered :- "+country.getTotalRecovered(),
                             "Total Deaths :- "+country.getTotalDeaths()));
-
-
                 }
-                // mAdapter.filteredList(exampleList);
-                //  mAdapter = new ExampleAdapter(exampleList);
+
 
                 mAdapter = new ExampleAdapter(exampleList);
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.setOnItemClickListener(new ExampleAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(int getposition) {
-
-                       // Toast.makeText(CountryFragment.this, Integer.toString(getposition), Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -156,6 +164,69 @@ public class CountryFragment extends Fragment {
 
             }
         });
+
+         */
+
+      //  Toast.makeText(getContext(), "NOTHING IS WRONG", Toast.LENGTH_SHORT).show();
+        Call<List<NCovidCountryObj>> call=apiClass.getNewCountryDetails();
+        call.enqueue(new Callback<List<NCovidCountryObj>>() {
+            @Override
+            public void onResponse(Call<List<NCovidCountryObj>> call, Response<List<NCovidCountryObj>> response) {
+
+                //Toast.makeText(getContext(), "NOTHING IS WRONG", Toast.LENGTH_SHORT).show();
+              //  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+               // StrictMode.setThreadPolicy(policy);
+
+
+                List<NCovidCountryObj> clist=response.body();
+
+               // Toast.makeText(getContext(), Integer.toString(clist.size()), Toast.LENGTH_SHORT).show();
+
+                for(NCovidCountryObj country:clist)
+                {
+                    /*
+
+                    Bitmap bitmap = null;
+
+                    try {
+                        URL url = new URL(country.getCountryInfo().getFlag());
+                        bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    } catch(Exception e) {
+                        System.out.println(e);
+                        Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+
+                     */
+                    exampleList.add(new ExampleItem(country.getCountryInfo().getIso3(),
+                            ""+country.getCountry(),
+                            "Total Confirmed Cases:- "+Integer.toString(country.getCases())+" (+"+Integer.toString(country.getTodayCases())+")",
+                            "TotalActive :- "+Integer.toString(country.getActive()),
+                            "TotalRecovered :- "+Integer.toString(country.getRecovered()),
+                            "Total Deaths :- "+Integer.toString(country.getDeaths())));
+                }
+
+
+                mAdapter = new ExampleAdapter(exampleList);
+                mRecyclerView.setAdapter(mAdapter);
+                mAdapter.setOnItemClickListener(new ExampleAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(int getposition) {
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onFailure(Call<List<NCovidCountryObj>> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+
 
 
 
@@ -175,35 +246,5 @@ public class CountryFragment extends Fragment {
 
 
 
-    /*
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.toolbar_search_menu,menu);
-        MenuItem menuItem=menu.findItem(R.id.search_bar);
-        Toast.makeText(getContext(), "YES I AM IN", Toast.LENGTH_SHORT).show();
-        SearchView searchView=(SearchView) menuItem.getActionView();
-        searchView.setQueryHint("Type to Search");
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                mAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-
-
-        super.onCreateOptionsMenu(menu, inflater);
-
-
-    }
-
-     */
-
-
-
 }
+
