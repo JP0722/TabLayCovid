@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".GlobalFragment"
+    android:background="#E6E7EF"
     >
 
     <ScrollView
@@ -31,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="15dp"
-            app:cardBackgroundColor="#FFEB3B"
+            app:cardBackgroundColor="#f46b45"
             android:layout_marginBottom="50dp"
             android:layout_marginTop="40dp"
             >
@@ -46,16 +47,18 @@
                     android:text="Confirmed Cases"
                     android:textStyle="bold"
                     android:textSize="20sp"
+                    android:textColor="@android:color/white"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"/>
+                    android:layout_marginTop="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/newcases"
                     android:layout_below="@id/tcc_text"
-                    android:text="New Confirmed Cases:-"
+                    android:text="New Confirmed Cases :-"
                     android:layout_marginLeft="20dp"
                     android:textSize="15sp"
+                    android:textColor="@android:color/white"
                     android:layout_marginTop="10dp"
                     />
 
@@ -64,10 +67,11 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/totalcases"
                     android:layout_below="@id/newcases"
-                    android:text="Total Confirmed Cases:-"
+                    android:text="Total Confirmed Cases :-"
                     android:layout_marginLeft="20dp"
                     android:textSize="15sp"
                     android:layout_marginBottom="20dp"
+                    android:textColor="@android:color/white"
                     android:layout_marginTop="10dp"
                     />
 
@@ -97,16 +101,18 @@
                android:textStyle="bold"
                android:textSize="20sp"
                android:layout_centerHorizontal="true"
-               android:layout_marginTop="5dp"/>
+               android:textColor="@android:color/white"
+               android:layout_marginTop="10dp"/>
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:id="@+id/totalacases"
                android:layout_below="@id/tac_text"
-               android:text="New Cases:-"
+               android:text="Total Active Cases :-"
                android:layout_marginLeft="20dp"
                android:textSize="15sp"
                android:layout_marginTop="10dp"
+               android:textColor="@android:color/white"
                android:layout_marginBottom="20dp"
                />
 
@@ -121,7 +127,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="15dp"
-        app:cardBackgroundColor="#6AC86E"
+        app:cardBackgroundColor="#57CF5C"
         android:layout_marginBottom="50dp"
         >
         <RelativeLayout
@@ -135,7 +141,8 @@
                 android:text="Recovered Cases"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
                 android:layout_centerHorizontal="true"/>
 
 
@@ -144,10 +151,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/totalrcases"
                 android:layout_below="@id/trc_text"
-                android:text="Total Recovered Cases:-"
+                android:text="Total Recovered Cases :-"
                 android:layout_marginLeft="20dp"
                 android:textSize="15sp"
                 android:layout_marginBottom="20dp"
+                android:textColor="@android:color/white"
                 android:layout_marginTop="10dp"
                 />
 
@@ -172,16 +180,18 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tdc_text"
                 android:text="Death Cases"
+                android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/newdcases"
                 android:layout_below="@id/tdc_text"
-                android:text="Today Deaths:-"
+                android:textColor="@android:color/white"
+                android:text="Today Deaths :-"
                 android:layout_marginLeft="20dp"
                 android:textSize="15sp"
                 android:layout_marginTop="10dp"
@@ -192,7 +202,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/totaldcases"
                 android:layout_below="@id/newdcases"
-                android:text="Total Death Cases:-"
+                android:textColor="@android:color/white"
+                android:text="Total Death Cases :-"
                 android:layout_marginLeft="20dp"
                 android:textSize="15sp"
                 android:layout_marginBottom="20dp"
@@ -210,7 +221,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardBackgroundColor="#E4DCDC"
+            app:cardBackgroundColor="#FAF6F6"
             android:layout_marginTop="50dp"
             app:cardCornerRadius="40dp"
             android:layout_marginBottom="60dp">
@@ -220,6 +231,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
                 />
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            app:cardBackgroundColor="#8692D8"
+            android:layout_marginBottom="50dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tafc_text"
+                    android:text="Affected Countries Count :- "
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="17sp"
+                    android:layout_marginTop="5dp"
+                    />
+
+            </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 

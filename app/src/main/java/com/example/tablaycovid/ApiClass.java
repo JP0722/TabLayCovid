@@ -9,10 +9,6 @@ public interface ApiClass {
     @GET("/world/total")
     Call<CovidObj> gettotaldetails();
 
-    @GET("/summary")
-    Call<CovidAll> getCountriesdetails();
-
-
     @GET("/v2/countries")
     Call<List<NCovidCountryObj>> getNewCountryDetails();
 
@@ -21,6 +17,9 @@ public interface ApiClass {
 
     @GET("/v2/state_district_wise.json")
     Call<List<StateObject>> getStateDetails();
+
+    @GET("/v2/countries/india")
+    Call<NCovidCountryObj> getIndiaDetals();
 
 
 }

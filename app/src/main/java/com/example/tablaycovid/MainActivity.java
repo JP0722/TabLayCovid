@@ -2,19 +2,21 @@ package com.example.tablaycovid;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Spanned;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-//import android.widget.Toolbar;
 import androidx.appcompat.widget.Toolbar;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
@@ -77,6 +79,10 @@ public class MainActivity extends AppCompatActivity {
             });
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         }
+        else{
+            startActivity(new Intent(MainActivity.this,OfflineActivity.class));
+
+        }
 
 
     }
@@ -87,8 +93,7 @@ public class MainActivity extends AppCompatActivity {
         NetworkInfo activeNetwork=manager.getActiveNetworkInfo();
         if(null==activeNetwork)
         {
-
-                Toast.makeText(this, "PLEASE ENABLE INTERNET", Toast.LENGTH_SHORT).show();
+              // Toast.makeText(this, "PLEASE ENABLE INTERNET,TO SEE COVID-19 GlOBAL & INDIA STATS", Toast.LENGTH_SHORT).show();
                 return false;
         }
         else

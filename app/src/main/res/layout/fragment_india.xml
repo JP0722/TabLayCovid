@@ -10,6 +10,95 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:id="@+id/cardV1"
+            android:layout_margin="10dp"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/india_stats_fragment">
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Confirmed"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:id="@+id/text_conf"
+                    android:layout_margin="10dp"/>
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="Active"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:id="@+id/text_active"
+                    android:layout_toRightOf="@id/text_conf"
+                    android:layout_margin="10dp"/>
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="Recovered"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:id="@+id/text_recovered"
+                    android:layout_toRightOf="@id/text_active"
+                    android:layout_margin="10dp"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="Deceased"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp"
+                    android:id="@+id/text_deceased"
+                    android:layout_toRightOf="@id/text_recovered"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="---"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:id="@+id/value_conf"
+                    android:layout_below="@id/text_conf"
+                    android:layout_margin="10dp"/>
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="---"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:id="@+id/value_active"
+                    android:layout_below="@id/text_active"
+                    android:layout_toRightOf="@id/value_conf"
+                    android:layout_margin="10dp"/>
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:text="---"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:id="@+id/value_recovered"
+                    android:layout_below="@id/text_recovered"
+                    android:layout_toRightOf="@id/value_active"
+                    android:layout_margin="10dp"/>
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="---"
+                    android:textColor="#ffffff"
+                    android:textSize="14sp"
+                    android:id="@+id/value_deceased"
+                    android:layout_below="@id/text_deceased"
+                  android:layout_toRightOf="@id/value_recovered"
+                    android:layout_margin="10dp"/>
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -18,7 +107,8 @@
             android:hint="Search for State"
             android:cursorVisible="true"
             android:layout_margin="10dp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_below="@id/cardV1"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

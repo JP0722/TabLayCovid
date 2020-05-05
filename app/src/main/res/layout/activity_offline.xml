@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OfflineActivity">
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/deviceoff"
+                android:background="#DD3434"
+                android:text="DEVICE IS OFFLINE "
+                android:gravity="center"
+                android:textSize="12sp"
+                android:textColor="@android:color/white"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="STAY HOME , STAY SAFE"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:id="@+id/shsf"
+            android:gravity="center"
+            android:layout_marginTop="30dp"
+            />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:src="@drawable/offlineposter"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/imgv_off"
+
+                android:layout_below="@id/shsf"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="40dp"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgv_off"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="10dp"
+                >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgv_off"
+                android:id="@+id/guidelines"
+                android:textColor="@android:color/black"
+                android:layout_margin="10dp"/>
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
+</ScrollView>
+
+</RelativeLayout>

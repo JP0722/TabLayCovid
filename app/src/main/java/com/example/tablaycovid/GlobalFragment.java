@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.blongho.country_data.World;
+//import com.blongho.country_data.World;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -55,7 +55,8 @@ public class GlobalFragment extends Fragment {
     TextView tcc_text,newcases,totalcases,
             trc_text,newrcases,totalrcases,
             tdc_text,newdcases,totaldcases,
-            tac_text,totalacases;
+            tac_text,totalacases,tafc_text,
+            value_conf,value_active,value_recovered,value_deceased;
     PieChart pieChart;
 
 
@@ -90,6 +91,7 @@ public class GlobalFragment extends Fragment {
         pieChart=(PieChart)view.findViewById(R.id.pieChart);
         tac_text=(TextView)view.findViewById(R.id.tac_text);
         totalacases=(TextView)view.findViewById(R.id.totalacases);
+        tafc_text=(TextView)view.findViewById(R.id.tafc_text);
 
         dostuff();
         return view;
@@ -97,8 +99,6 @@ public class GlobalFragment extends Fragment {
     }
     public void dostuff()
     {
-       // Toast.makeText(getActivity(), "GETTING DATA", Toast.LENGTH_SHORT).show();
-
 
         Call<NCovidGlobalObj> call=apiClass.getNewGlobalDetails();
         call.enqueue(new Callback<NCovidGlobalObj>() {
@@ -111,16 +111,16 @@ public class GlobalFragment extends Fragment {
                 }
 
                 NCovidGlobalObj covidGlobal=response.body();
-                newcases.setText("New Confirmed Cases:- "+covidGlobal.getTodayCases());
-                totalcases.setText("Total Confirmed cases:- "+ covidGlobal.getCases());
-
-             //   newrcases.setText("New Cases:- ");
-                totalrcases.setText("Total Recovered cases:- "+covidGlobal.getRecovered());
+                newcases.setText("New Confirmed Cases :- "+covidGlobal.getTodayCases());
+                totalcases.setText("Total Confirmed Cases :- "+ covidGlobal.getCases());
+                totalrcases.setText("Total Recovered Cases :- "+covidGlobal.getRecovered());
 
                 totalacases.setText("Toatal Active Cases :- "+covidGlobal.getActive());
 
-                newdcases.setText("Today Deaths:- "+covidGlobal.getTodayDeaths());
-                totaldcases.setText("Total Death cases:- "+covidGlobal.getDeaths());
+                newdcases.setText("Today Deaths :- "+covidGlobal.getTodayDeaths());
+                totaldcases.setText("Total Death Cases :- "+covidGlobal.getDeaths());
+
+                tafc_text.setText("Affected Countries Count :- "+covidGlobal.getAffectedCountries());
 
                 pieChart.setUsePercentValues(true);
                 pieChart.getDescription().setEnabled(false);

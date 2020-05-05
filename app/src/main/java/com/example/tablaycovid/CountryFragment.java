@@ -25,7 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.blongho.country_data.World;
+//import com.blongho.country_data.World;
 
 import java.io.IOException;
 import java.net.URL;
@@ -68,7 +68,7 @@ public class CountryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        World.init(getContext());
+       // World.init(getContext());
 
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl("https://corona.lmao.ninja") //https://api.covid19api.com/summary ---- https://corona.lmao.ninja/v2/
@@ -105,82 +105,23 @@ public class CountryFragment extends Fragment {
     }
     public void dostuff()
     {
-
-
        mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         getMusic();
-
     }
 
 
     public void getMusic()
     {
-
-
         Toast.makeText(getActivity(), "GETTING DATA", Toast.LENGTH_SHORT).show();
 
-        /*
-
-        Call<CovidAll> call=apiClass.getCountriesdetails();
-        call.enqueue(new Callback<CovidAll>() {
-            @Override
-            public void onResponse(Call<CovidAll> call, Response<CovidAll> response) {
-
-                CovidAll covidAll=response.body();
-
-                CovidGlobal covidGlobal=covidAll.getCovidGlobal();
-
-                List<CovidCounties> covidCountiesList=covidAll.getCovidCountiesList();
-
-                for(CovidCounties country:covidCountiesList)
-                {
-
-                    exampleList.add(new ExampleItem(null,
-                            ""+country.getCountry(),
-                            "Total Confirmed Cases:- "+country.getTotalConfirmed()+" (+"+country.getNewConfirmed()+")",
-                            "TotalActive :- "+Integer.toString(Integer.parseInt(country.getTotalConfirmed())
-                                    -(Integer.parseInt(country.getTotalRecovered())+Integer.parseInt(country.getTotalDeaths()))),
-                            "TotalRecovered :- "+country.getTotalRecovered(),
-                            "Total Deaths :- "+country.getTotalDeaths()));
-                }
-
-
-                mAdapter = new ExampleAdapter(exampleList);
-                mRecyclerView.setAdapter(mAdapter);
-                mAdapter.setOnItemClickListener(new ExampleAdapter.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(int getposition) {
-
-                    }
-                });
-
-
-            }
-
-            @Override
-            public void onFailure(Call<CovidAll> call, Throwable t) {
-
-            }
-        });
-
-         */
-
-      //  Toast.makeText(getContext(), "NOTHING IS WRONG", Toast.LENGTH_SHORT).show();
         Call<List<NCovidCountryObj>> call=apiClass.getNewCountryDetails();
         call.enqueue(new Callback<List<NCovidCountryObj>>() {
             @Override
             public void onResponse(Call<List<NCovidCountryObj>> call, Response<List<NCovidCountryObj>> response) {
 
-                //Toast.makeText(getContext(), "NOTHING IS WRONG", Toast.LENGTH_SHORT).show();
-              //  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-               // StrictMode.setThreadPolicy(policy);
-
-
                 List<NCovidCountryObj> clist=response.body();
-
-               // Toast.makeText(getContext(), Integer.toString(clist.size()), Toast.LENGTH_SHORT).show();
 
                 for(NCovidCountryObj country:clist)
                 {
@@ -220,7 +161,7 @@ public class CountryFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<NCovidCountryObj>> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });

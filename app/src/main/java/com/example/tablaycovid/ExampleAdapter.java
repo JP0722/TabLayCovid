@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.blongho.country_data.World;
+//import com.blongho.country_data.World;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +47,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
         public ExampleViewHolder(View itemView, final OnItemClickListener listener) {
             super(itemView);
-            mImageView=itemView.findViewById(R.id.imageView1);
+            //mImageView=itemView.findViewById(R.id.imageView1);
             countryname=itemView.findViewById(R.id.countryname);
             activecases=itemView.findViewById(R.id.activecases);
             confcases=itemView.findViewById(R.id.confcases);
@@ -88,6 +88,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
 
         ExampleItem currentItem=mExampleList.get(position);
+        /*
         try {
 
             final int flagimage=World.getFlagOf(currentItem.getImageResource());
@@ -97,6 +98,10 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         {
             holder.mImageView.setImageResource(R.drawable.ic_launcher_background);
         }
+
+         */
+      //  holder.mImageView.setImageResource(R.drawable.ic_launcher_background);
+
         holder.countryname.setText(currentItem.getCountry());
         holder.confcases.setText(currentItem.getTotConfirmed());
         holder.activecases.setText(currentItem.getTotActive());
